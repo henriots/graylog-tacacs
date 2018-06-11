@@ -27,6 +27,4 @@ vim /etc/rsyslog.conf
 
 	local3.* @<GRAYLOG-SERVER-IP/NAME:4949
 
-#### TODO
 
-1) Move from "Split & Index" to "Grok" patterns.
