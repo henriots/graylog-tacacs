@@ -1,5 +1,7 @@
 Tacacs+ Content pack for Graylog
 
+Tested with Cisco
+
 
 #### Linux config
 
