@@ -2,6 +2,8 @@ Tacacs+ Content pack for Graylog
 
 Tested with Cisco
 
+If you don't like to use whole content pack, just import the extractors for your Tacacs log input.
+
 
 #### Linux config
 
