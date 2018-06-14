@@ -1,0 +1,118 @@
+{
+  "extractors": [
+    {
+      "title": "syslog",
+      "extractor_type": "grok",
+      "converters": [],
+      "order": 0,
+      "cursor_strategy": "cut",
+      "source_field": "message",
+      "target_field": "",
+      "extractor_config": {
+        "grok_pattern": "%{HOSTNAME:tac-source} %{HOSTNAME:tag} %{SYSLOGTIMESTAMP:time}%{GREEDYDATA:tacacslog}",
+        "named_captures_only": false
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "tacacs-DST-USER-LINE-SRC",
+      "extractor_type": "grok",
+      "converters": [],
+      "order": 0,
+      "cursor_strategy": "cut",
+      "source_field": "tacacslog",
+      "target_field": "",
+      "extractor_config": {
+        "grok_pattern": "%{IPV4:dst_ip}\t%{USERNAME:username}\t%{HOSTNAME:tty}\t%{IPV4:src_ip}\t%{GREEDYDATA:commandlog}"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "taskid",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 0,
+      "cursor_strategy": "copy",
+      "source_field": "commandlog",
+      "target_field": "taskid",
+      "extractor_config": {
+        "regex_value": "((?<=task_id\\=).+?(?=\\s))"
+      },
+      "condition_type": "string",
+      "condition_value": "cmd"
+    },
+    {
+      "title": "command field",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 0,
+      "cursor_strategy": "copy",
+      "source_field": "commandlog",
+      "target_field": "cmd",
+      "extractor_config": {
+        "regex_value": "((?<=cmd\\=).+?(?=\\s<cr>))"
+      },
+      "condition_type": "string",
+      "condition_value": "cmd"
+    },
+    {
+      "title": "timezone",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 0,
+      "cursor_strategy": "copy",
+      "source_field": "commandlog",
+      "target_field": "timezone",
+      "extractor_config": {
+        "regex_value": "((?<=timezone\\=).+?(?=\\s))"
+      },
+      "condition_type": "string",
+      "condition_value": "cmd"
+    },
+    {
+      "title": "service",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 0,
+      "cursor_strategy": "copy",
+      "source_field": "commandlog",
+      "target_field": "service",
+      "extractor_config": {
+        "regex_value": "((?<=service\\=).+?(?=\\s))"
+      },
+      "condition_type": "string",
+      "condition_value": "cmd"
+    },
+    {
+      "title": "priv_level",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 0,
+      "cursor_strategy": "copy",
+      "source_field": "commandlog",
+      "target_field": "priv_level",
+      "extractor_config": {
+        "regex_value": "((?<=priv-lvl\\=).+?(?=\\s))"
+      },
+      "condition_type": "string",
+      "condition_value": "cmd"
+    },
+    {
+      "title": "elapsed_time",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 0,
+      "cursor_strategy": "copy",
+      "source_field": "commandlog",
+      "target_field": "elapsed_time",
+      "extractor_config": {
+        "regex_value": "((?<=elapsed_time\\=).+?(?=\\s))"
+      },
+      "condition_type": "string",
+      "condition_value": "elapsed_time"
+    }
+  ],
+  "version": "2.4.5"
+}
