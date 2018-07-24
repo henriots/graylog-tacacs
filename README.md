@@ -38,16 +38,11 @@ vim /etc/filebeat/filebeat.yml
 	filebeat.inputs:
 	
 	- type: log
-	
-  	# Change to true to enable this input configuration.
-	enabled: true
-	
+	  enabled: true
   	# Paths that should be crawled and fetched. Glob based paths.
-  	paths:
-    	  - /var/log/tac_plus.acct
-    	#- c:\programdata\elasticsearch\logs\*
-  	tail_files: true
-	
+  	  paths:
+    	    - /var/log/tac_plus.acct
+  	  tail_files: true
 	output.logstash:
   	# The Logstash hosts
   	  hosts: ["<GRAYLOG-SERVER-IP:PORT>"]
