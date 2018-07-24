@@ -1,0 +1,47 @@
+{
+  "extractors": [
+    {
+      "title": "tacacs_log",
+      "extractor_type": "grok",
+      "converters": [],
+      "order": 0,
+      "cursor_strategy": "copy",
+      "source_field": "message",
+      "target_field": "",
+      "extractor_config": {
+        "grok_pattern": "%{SYSLOGTIMESTAMP:timestamp}%{GREEDYDATA:tacacs_log}"
+      },
+      "condition_type": "string",
+      "condition_value": "tty"
+    },
+    {
+      "title": "src-username-line-dst",
+      "extractor_type": "grok",
+      "converters": [],
+      "order": 0,
+      "cursor_strategy": "copy",
+      "source_field": "tacacs_log",
+      "target_field": "",
+      "extractor_config": {
+        "grok_pattern": "%{IPV4:dst_ip}\t%{USERNAME:username}\t%{HOSTNAME:line}\t%{IPV4:src_ip}\t%{GREEDYDATA:tac_log}"
+      },
+      "condition_type": "none",
+      "condition_value": ""
+    },
+    {
+      "title": "cmd",
+      "extractor_type": "regex",
+      "converters": [],
+      "order": 0,
+      "cursor_strategy": "copy",
+      "source_field": "tac_log",
+      "target_field": "cmd",
+      "extractor_config": {
+        "regex_value": "((?<=cmd\\=).+?(?=\\s<cr>))"
+      },
+      "condition_type": "string",
+      "condition_value": "cmd"
+    }
+  ],
+  "version": "2.4.6"
+}
