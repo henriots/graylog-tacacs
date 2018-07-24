@@ -10,6 +10,8 @@ If you don't like to use whole content pack, just import the extractors for your
 vim /etc/tacacs+/tac_plus.conf
 
 	accounting file = /var/log/tac_plus.acct
+	
+#### RSYSLOG
 
 vim /etc/rsyslog.conf
 
@@ -29,4 +31,23 @@ vim /etc/rsyslog.conf
 
 	local3.* @<GRAYLOG-SERVER-IP/NAME:4949
 
+#### FILEBEAT
 
+vim /etc/filebeat/filebeat.yml
+
+	filebeat.inputs:
+	
+	- type: log
+	
+  	# Change to true to enable this input configuration.
+	enabled: true
+	
+  	# Paths that should be crawled and fetched. Glob based paths.
+  	paths:
+    	  - /var/log/tac_plus.acct
+    	#- c:\programdata\elasticsearch\logs\*
+  	tail_files: true
+	
+	output.logstash:
+  	# The Logstash hosts
+  	  hosts: ["<GRAYLOG-SERVER-IP:PORT>"]
